@@ -1,0 +1,66 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My_project" GeneratedClassName="Settings1">
+  <Profiles />
+  <Settings>
+    <Setting Name="database_ip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="database_user" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="database_pass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345678</Value>
+    </Setting>
+    <Setting Name="database_name_hanhai_manufacture" Type="System.String" Scope="User">
+      <Value Profile="(Default)">hanhai_manufacture</Value>
+    </Setting>
+    <Setting Name="database_name_hanhai_management" Type="System.String" Scope="User">
+      <Value Profile="(Default)">hanhai_management</Value>
+    </Setting>
+    <Setting Name="database_name_hanhai_produce" Type="System.String" Scope="User">
+      <Value Profile="(Default)">hanhai_produce</Value>
+    </Setting>
+    <Setting Name="未打包状态" Type="System.String" Scope="User">
+      <Value Profile="(Default)">115</Value>
+    </Setting>
+    <Setting Name="打包完成状态" Type="System.String" Scope="User">
+      <Value Profile="(Default)">118</Value>
+    </Setting>
+    <Setting Name="database_name" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="database_ip_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="database_user_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="database_pass_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345678</Value>
+    </Setting>
+    <Setting Name="database_ip_hanhai" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.31.250</Value>
+    </Setting>
+    <Setting Name="database_user_hanhai" Type="System.String" Scope="User">
+      <Value Profile="(Default)">chk</Value>
+    </Setting>
+    <Setting Name="database_pass_hanhai" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345678</Value>
+    </Setting>
+    <Setting Name="check_state" Type="System.String" Scope="User">
+      <Value Profile="(Default)">local</Value>
+    </Setting>
+    <Setting Name="Check_days" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="postion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="su_postion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="组件打包完成状态" Type="System.String" Scope="User">
+      <Value Profile="(Default)">119</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
