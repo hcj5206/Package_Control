@@ -361,6 +361,7 @@ namespace My_project
 
 
 
+
                 if (dg_element.Rows.Count > 0)
                 {
                     
@@ -404,6 +405,11 @@ namespace My_project
                         MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_clear, new MySqlParameter("@prodid", 24));
                       
                     }
+
+                    //总包数更新
+                    string sql_update = "update `order_order_online` set `Package_num_hcj`='" + Package_num + "'where `Order_id`='" + Order_id + "'";
+                    MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update, new MySqlParameter("@prodid", 24));
+
                     Update_page_done_change(Order_id);
                 }
                 else
@@ -412,9 +418,7 @@ namespace My_project
                     Speak("错误");
                 }   
                 
-               // string sql_update = "";
-               //  MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text,sql_update, new MySqlParameter("@prodid", 24));
-            }
+              }
         }
         
         /// <summary>语言模块</summary>
@@ -531,6 +535,14 @@ namespace My_project
                 Increase_element(tb_re_ad_id.Text,tb_rescan.Text);
                 tb_rescan.Text = "";
             }
+            if (tb_change_order.Text != "")
+            {
+                Update_page_done_change(tb_change_order.Text);
+               
+                tb_change_order.Text = "";
+            }
+
+            
             if (!tb_person.Focused)
             {
                 tb_person.Focus();
@@ -861,15 +873,25 @@ namespace My_project
             Re_pack_Pack_id = Re_pack_Pack_id.ToUpper();
             if (Re_pack_Pack_id.Contains("P") && Re_pack_Pack_id.Contains("-"))//判断是否为订货单号
             {
-                string sql_update1 = "update `order_element_online` set `State`=" + Settings1.Default.未打包状态 + ",`Package_work_order_ap_id_hcj`=null, `Package_work_order_create_time`=null,`Shelf_after_membrane_operator_id`= null,`Shelf_after_membrane_time`=null WHERE `Package_work_order_ap_id_hcj`='" + Re_pack_Pack_id + "'";
-                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update1, new MySqlParameter("@prodid", 24));
-                string sql_update3 = "update `order_part_online` set `State`=" + Settings1.Default.未打包状态 + " ,`Package_task_list_ap_id_hcj`=null, `Shelf_after_membrane_time`=null,`Shelf_after_membrane_operator_id`= null WHERE `Package_task_list_ap_id_hcj`='" + Re_pack_Pack_id + "'";
-                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update3, new MySqlParameter("@prodid", 24));
-                string sql_clear = "delete from `work_package_task_list` where `Ap_id`='" + Re_pack_Pack_id + "'";
-                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_clear, new MySqlParameter("@prodid", 24));
-                Update_page_undone_order();
-                Update_page_done();
-                Speak("打包工单已取消");
+                if (Re_pack_Pack_id.Contains("S"))
+                {
+                    string Sql_do2 = "UPDATE `order_section_online` SET `State`=" + Settings1.Default.未打包状态 + ",`is_packed`=0 WHERE `Sec_id` = '" + Re_pack_Pack_id + "'";
+                    MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, Sql_do2, new MySqlParameter("@prodid", 24));
+
+                }
+                else
+                {
+                    string sql_update1 = "update `order_element_online` set `State`=" + Settings1.Default.未打包状态 + ",`Package_work_order_ap_id_hcj`=null, `Package_work_order_create_time`=null,`Shelf_after_membrane_operator_id`= null,`Shelf_after_membrane_time`=null WHERE `Package_work_order_ap_id_hcj`='" + Re_pack_Pack_id + "'";
+                    MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update1, new MySqlParameter("@prodid", 24));
+                    string sql_update3 = "update `order_part_online` set `State`=" + Settings1.Default.未打包状态 + " ,`Package_task_list_ap_id_hcj`=null, `Shelf_after_membrane_time`=null,`Shelf_after_membrane_operator_id`= null WHERE `Package_task_list_ap_id_hcj`='" + Re_pack_Pack_id + "'";
+                    MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update3, new MySqlParameter("@prodid", 24));
+                    string sql_clear = "delete from `work_package_task_list` where `Ap_id`='" + Re_pack_Pack_id + "'";
+                    MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_clear, new MySqlParameter("@prodid", 24));
+                    Update_page_undone_order();
+                    Update_page_done();
+                    Speak("打包工单已取消");
+                }
+                
             }
             else if ( Re_pack_Pack_id.Contains("O"))
             {
@@ -882,7 +904,7 @@ namespace My_project
                 Contract_id = Re_pack_Pack_id.Split('O')[0];
                 string sql_update = "UPDATE `order_contract_internal` SET `State`=" + Settings1.Default.未打包状态 + " WHERE `Contract_id` = '" + Contract_id + "'";
                 string Sql_do1 = "UPDATE `order_order_online` SET `State`=" + Settings1.Default.未打包状态 + ",`Package_num_hcj`=" + 0 + "  WHERE `Order_id` = '" + Re_pack_Pack_id + "'";
-                string Sql_do2 = "UPDATE `order_section_online` SET `State`=" + Settings1.Default.未打包状态 + " WHERE `Order_id` = '" + Re_pack_Pack_id + "'";
+                string Sql_do2 = "UPDATE `order_section_online` SET `State`=" + Settings1.Default.未打包状态 + ",`is_packed`=0 WHERE `Order_id` = '" + Re_pack_Pack_id + "'";
                 MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update, new MySqlParameter("@prodid", 24));
                 MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, Sql_do1, new MySqlParameter("@prodid", 24));
                 MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, Sql_do2, new MySqlParameter("@prodid", 24));
@@ -921,27 +943,57 @@ namespace My_project
                 tb_re_ad_id.Text = change_apid["包装条码", e.RowIndex].Value.ToString();
                 string a = tb_re_ad_id.Text;
                 change_grid.Rows.Clear();
-                string sql_select = "SELECT `Order_id`,`Board_type`,`Color`,`Board_height`,`Board_width`,`Code`,`Package_work_order_ap_id_hcj` FROM `order_element_online` WHERE `Package_work_order_ap_id_hcj`='" + a+"'";
-                DataSet ds_element = MySqlHelper.GetDataSet(mysqlStr_manufacture, CommandType.Text, sql_select, new MySqlParameter("@prodid", 24));
-                DataTable dt_all_element1 = ds_element.Tables[0]; //
-                if (dt_all_element1.Rows.Count > 0)
+                if (tb_re_ad_id.Text.Contains("O"))
                 {
-
-
-                    for (int i = 0; i < dt_all_element1.Rows.Count; i++)
+                    if (tb_re_ad_id.Text.Contains("S"))
                     {
+                        string sec_id = tb_re_ad_id.Text.Split('P')[1].Split('-')[0];
+                        string sql_select1 = "SELECT `Sec_id`,`Sec_series`,`Sec_model`,`Sec_color`,`Sec_thick`,`Order_id` FROM `order_section_online` WHERE  `Sec_id`='" + sec_id + "'";
+                        DataSet ds_element1 = MySqlHelper.GetDataSet(mysqlStr_manufacture, CommandType.Text, sql_select1, new MySqlParameter("@prodid", 24));
+                        DataTable dt_ds_element1 = ds_element1.Tables[0];
+                 
+                        if (dt_ds_element1.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < dt_ds_element1.Rows.Count; i++)
+                            {
 
-                        int index = change_grid.Rows.Add();
-                        change_grid.Rows[index].Cells["颜色3"].Value = dt_all_element1.Rows[i]["Color"];
-                        change_grid.Rows[index].Cells["门型3"].Value = dt_all_element1.Rows[i]["Board_type"];
-                        change_grid.Rows[index].Cells["高度3"].Value = dt_all_element1.Rows[i]["Board_height"];
-                        change_grid.Rows[index].Cells["宽度3"].Value = dt_all_element1.Rows[i]["Board_width"];
-                        change_grid.Rows[index].Cells["订单号3"].Value = dt_all_element1.Rows[i]["Order_id"];
-                        change_grid.Rows[index].Cells["条形码3"].Value = dt_all_element1.Rows[i]["Code"];
-                        change_grid.Rows[index].Cells["包装条码3"].Value = dt_all_element1.Rows[i]["Package_work_order_ap_id_hcj"];
+                                int index = change_grid.Rows.Add();
+                                change_grid.Rows[index].Cells["颜色3"].Value = dt_ds_element1.Rows[i]["Sec_color"];
+                                change_grid.Rows[index].Cells["门型3"].Value = dt_ds_element1.Rows[i]["Sec_model"];
+                                change_grid.Rows[index].Cells["高度3"].Value = dt_ds_element1.Rows[i]["Sec_series"];
+                                change_grid.Rows[index].Cells["宽度3"].Value = "";
+                                change_grid.Rows[index].Cells["订单号3"].Value = dt_ds_element1.Rows[i]["Order_id"];
+                                change_grid.Rows[index].Cells["条形码3"].Value = dt_ds_element1.Rows[i]["Sec_id"];
+                                change_grid.Rows[index].Cells["包装条码3"].Value = tb_re_ad_id.Text;
+                            }
+
+
+                        }
                     }
+                    else
+                    {
+                        string sql_select = "SELECT `Order_id`,`Board_type`,`Color`,`Board_height`,`Board_width`,`Code`,`Package_work_order_ap_id_hcj` FROM `order_element_online` WHERE `Package_work_order_ap_id_hcj`='" + a + "' and `Element_type_id` in (1,3,9,4,5,6)";
+                        DataSet ds_element = MySqlHelper.GetDataSet(mysqlStr_manufacture, CommandType.Text, sql_select, new MySqlParameter("@prodid", 24));
+                        DataTable dt_all_element1 = ds_element.Tables[0]; //
+                        if (dt_all_element1.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < dt_all_element1.Rows.Count; i++)
+                            {
 
+                                int index = change_grid.Rows.Add();
+                                change_grid.Rows[index].Cells["颜色3"].Value = dt_all_element1.Rows[i]["Color"];
+                                change_grid.Rows[index].Cells["门型3"].Value = dt_all_element1.Rows[i]["Board_type"];
+                                change_grid.Rows[index].Cells["高度3"].Value = dt_all_element1.Rows[i]["Board_height"];
+                                change_grid.Rows[index].Cells["宽度3"].Value = dt_all_element1.Rows[i]["Board_width"];
+                                change_grid.Rows[index].Cells["订单号3"].Value = dt_all_element1.Rows[i]["Order_id"];
+                                change_grid.Rows[index].Cells["条形码3"].Value = dt_all_element1.Rows[i]["Code"];
+                                change_grid.Rows[index].Cells["包装条码3"].Value = dt_all_element1.Rows[i]["Package_work_order_ap_id_hcj"];
+                            }
+
+                        }
+                    }
                 }
+                
             }
 
         }
@@ -953,6 +1005,7 @@ namespace My_project
 
         private void button4_Click(object sender, EventArgs e)
         {
+          
             int a=change_grid.CurrentRow.Index;
             string Code_c1= Convert.ToString(change_grid.Rows[a].Cells["条形码3"].Value);
             
@@ -1055,49 +1108,58 @@ namespace My_project
 
         private void bt_sec_Click(object sender, EventArgs e)
         {
-            int pack_num=1;
-            string sql_select1 = "SELECT `Ap_id` FROM `work_package_task_list` WHERE `Order_id` ='" + lb_sec_order_id.Text + "' order by `Create_Time`  desc limit 1 ";
-            DataSet ds = MySqlHelper.GetDataSet(mysqlStr_manufacture, CommandType.Text, sql_select1, new MySqlParameter("@prodid", 24));
-            DataTable dt = ds.Tables[0];
-            if (dt.Rows.Count > 0)
+            if (dg_element.Rows.Count==0)
             {
-                Ap_id = Convert.ToString(dt.Rows[0]["Ap_id"]);
-                pack_num =Convert.ToInt32(Ap_id.Split('-')[1]) + 1;
-            }
-            Ap_id = "P"+ lb_sec.Text+"-"+ pack_num;
-            string sql_insert = "INSERT INTO `work_package_task_list` (Ap_id, Operator_id, Sec_id,Create_Time,Print_Barcode,Package_num,Total_plies,Order_id) VALUES('" + Ap_id + "','" + job_id + "','" +lb_sec.Text  + "','" + DateTime.Now.ToString() + "','" + 100 + "','" + Convert.ToString(Ap_id.Split('-')[1]) + "',1,'" + lb_sec_order_id.Text + "') ";
-            MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_insert, new MySqlParameter("@prodid", 24));
-            Speak("第"+pack_num+"包");
-            string sql_update = "update `order_order_online` set `Package_num_hcj`='"+ pack_num + "'where `Order_id`='"+ lb_sec_order_id.Text + "'";
-            MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update, new MySqlParameter("@prodid", 24));
-            string sql_update1 = "update `order_section_online` set `is_packed`='1' where `Sec_id`='" + lb_sec.Text + "'";
-            MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update1, new MySqlParameter("@prodid", 24));
-            for (int i = 0; i < dg_sec.RowCount; i++)
-            {
-                if (Convert.ToString(dg_sec.Rows[i].Cells["Sec_code_id"].Value) == lb_sec.Text)
+                int pack_num = 1;
+                string sql_select1 = "SELECT `Ap_id` FROM `work_package_task_list` WHERE `Order_id` ='" + lb_sec_order_id.Text + "' order by `Create_Time`  desc limit 1 ";
+                DataSet ds = MySqlHelper.GetDataSet(mysqlStr_manufacture, CommandType.Text, sql_select1, new MySqlParameter("@prodid", 24));
+                DataTable dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
                 {
-                    dg_sec.Rows.RemoveAt(i);
-                    break;
+                    Ap_id = Convert.ToString(dt.Rows[0]["Ap_id"]);
+                    pack_num = Convert.ToInt32(Ap_id.Split('-')[1]) + 1;
                 }
-            }
-            for (int i = 0; i < dg_sec_by_order.RowCount; i++)
-            {
-                if (Convert.ToString(dg_sec_by_order.Rows[i].Cells["Sec_code_id2"].Value) == lb_sec.Text)
+                Ap_id = "P" + lb_sec.Text + "-" + pack_num;
+                string sql_insert = "INSERT INTO `work_package_task_list` (Ap_id, Operator_id, Sec_id,Create_Time,Print_Barcode,Package_num,Total_plies,Order_id) VALUES('" + Ap_id + "','" + job_id + "','" + lb_sec.Text + "','" + DateTime.Now.ToString() + "','" + 100 + "','" + Convert.ToString(Ap_id.Split('-')[1]) + "',1,'" + lb_sec_order_id.Text + "') ";
+                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_insert, new MySqlParameter("@prodid", 24));
+                Speak("第" + pack_num + "包");
+                string sql_update = "update `order_order_online` set `Package_num_hcj`='" + pack_num + "'where `Order_id`='" + lb_sec_order_id.Text + "'";
+                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update, new MySqlParameter("@prodid", 24));
+                string sql_update1 = "update `order_section_online` set `is_packed`='1' where `Sec_id`='" + lb_sec.Text + "'";
+                MySqlHelper.ExecuteNonQuery(mysqlStr_manufacture, CommandType.Text, sql_update1, new MySqlParameter("@prodid", 24));
+                for (int i = 0; i < dg_sec.RowCount; i++)
                 {
-                    dg_sec_by_order.Rows.RemoveAt(i);
-                    break;
+                    if (Convert.ToString(dg_sec.Rows[i].Cells["Sec_code_id"].Value) == lb_sec.Text)
+                    {
+                        dg_sec.Rows.RemoveAt(i);
+                        break;
+                    }
                 }
-            }
-            bt_sec.Enabled = false;
-            lb_sec.Text = "";
-            if (dg_sec_by_order.RowCount==0)
-            {
-                Speak("整套组件打包完成");
+                for (int i = 0; i < dg_sec_by_order.RowCount; i++)
+                {
+                    if (Convert.ToString(dg_sec_by_order.Rows[i].Cells["Sec_code_id2"].Value) == lb_sec.Text)
+                    {
+                        dg_sec_by_order.Rows.RemoveAt(i);
+                        break;
+                    }
+                }
                 bt_sec.Enabled = false;
-                //bt_sec.Visible = false;
+                lb_sec.Text = "";
+                if (dg_sec_by_order.RowCount == 0)
+                {
+                    Speak("整套组件打包完成");
+                    bt_sec.Enabled = false;
+                    //bt_sec.Visible = false;
+                }
+
+                Update_page_done();
+
             }
-           
-            Update_page_done();
+            else
+            {
+                Speak("请先打包板件");
+            }
+
 
         }
 
@@ -1189,6 +1251,11 @@ namespace My_project
                 }
 
             }
+        }
+
+        private void lb_sec_order_id_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Update_Sec_dgview_by_order(String Order_id)

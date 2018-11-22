@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +45,7 @@
             this.lb_person = new System.Windows.Forms.Label();
             this.tb_person = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lb_sec_order_id = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dg_sec = new System.Windows.Forms.DataGridView();
@@ -144,7 +145,8 @@
             this.订单号4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.lb_sec_order_id = new System.Windows.Forms.Label();
+            this.tb_change_order = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -286,7 +288,6 @@
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lb_sec_order_id);
-            this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.lb_sec);
             this.panel1.Controls.Add(this.bt_sec);
             this.panel1.Controls.Add(this.label9);
@@ -309,15 +310,26 @@
             this.panel1.Size = new System.Drawing.Size(1445, 155);
             this.panel1.TabIndex = 3;
             // 
+            // lb_sec_order_id
+            // 
+            this.lb_sec_order_id.AutoSize = true;
+            this.lb_sec_order_id.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lb_sec_order_id.Location = new System.Drawing.Point(611, 118);
+            this.lb_sec_order_id.Name = "lb_sec_order_id";
+            this.lb_sec_order_id.Size = new System.Drawing.Size(73, 21);
+            this.lb_sec_order_id.TabIndex = 20;
+            this.lb_sec_order_id.Text = "订单号";
+            this.lb_sec_order_id.Click += new System.EventHandler(this.lb_sec_order_id_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(819, 37);
+            this.tabControl1.Location = new System.Drawing.Point(819, 34);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(553, 164);
+            this.tabControl1.Size = new System.Drawing.Size(553, 149);
             this.tabControl1.TabIndex = 16;
             // 
             // tabPage4
@@ -328,7 +340,7 @@
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Size = new System.Drawing.Size(545, 138);
+            this.tabPage4.Size = new System.Drawing.Size(545, 123);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "全部";
             // 
@@ -351,7 +363,7 @@
             this.dg_sec.Name = "dg_sec";
             this.dg_sec.ReadOnly = true;
             this.dg_sec.RowTemplate.Height = 23;
-            this.dg_sec.Size = new System.Drawing.Size(540, 143);
+            this.dg_sec.Size = new System.Drawing.Size(540, 115);
             this.dg_sec.TabIndex = 20;
             this.dg_sec.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_sec_CellContentClick);
             // 
@@ -404,7 +416,7 @@
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(545, 138);
+            this.tabPage5.Size = new System.Drawing.Size(545, 123);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "该订单";
             // 
@@ -427,7 +439,7 @@
             this.dg_sec_by_order.Name = "dg_sec_by_order";
             this.dg_sec_by_order.ReadOnly = true;
             this.dg_sec_by_order.RowTemplate.Height = 23;
-            this.dg_sec_by_order.Size = new System.Drawing.Size(540, 143);
+            this.dg_sec_by_order.Size = new System.Drawing.Size(540, 118);
             this.dg_sec_by_order.TabIndex = 21;
             this.dg_sec_by_order.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_sec_by_order_CellContentClick);
             // 
@@ -475,10 +487,10 @@
             // lb_sec
             // 
             this.lb_sec.AutoSize = true;
-            this.lb_sec.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lb_sec.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_sec.Location = new System.Drawing.Point(611, 96);
             this.lb_sec.Name = "lb_sec";
-            this.lb_sec.Size = new System.Drawing.Size(106, 24);
+            this.lb_sec.Size = new System.Drawing.Size(89, 20);
             this.lb_sec.TabIndex = 19;
             this.lb_sec.Text = "整套组件";
             this.lb_sec.Click += new System.EventHandler(this.label13_Click);
@@ -499,7 +511,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(328, 87);
+            this.label9.Location = new System.Drawing.Point(325, 87);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(121, 35);
             this.label9.TabIndex = 17;
@@ -513,14 +525,14 @@
             this.ver.Name = "ver";
             this.ver.Size = new System.Drawing.Size(119, 12);
             this.ver.TabIndex = 16;
-            this.ver.Text = "版 本 号：20181121a";
+            this.ver.Text = "版 本 号：20181122B";
             this.ver.Click += new System.EventHandler(this.ver_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(813, 0);
+            this.label8.Location = new System.Drawing.Point(323, 52);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(123, 35);
             this.label8.TabIndex = 15;
@@ -532,7 +544,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(406, 11);
+            this.label7.Location = new System.Drawing.Point(323, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(123, 35);
             this.label7.TabIndex = 12;
@@ -697,9 +709,9 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.tb_cancel);
             this.panel2.Controls.Add(this.dg_element);
-            this.panel2.Location = new System.Drawing.Point(962, 181);
+            this.panel2.Location = new System.Drawing.Point(962, 194);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(491, 362);
+            this.panel2.Size = new System.Drawing.Size(491, 349);
             this.panel2.TabIndex = 5;
             // 
             // bt_cancel
@@ -827,14 +839,14 @@
             this.dg_order_undone.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dg_order_undone.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dg_order_undone.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_order_undone.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_order_undone.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dg_order_undone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_order_undone.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.订单号2,
@@ -941,14 +953,14 @@
             this.dg_all_element.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dg_all_element.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dg_all_element.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_all_element.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_all_element.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dg_all_element.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_all_element.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.订单号1,
@@ -1050,9 +1062,11 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Silver;
+            this.panel3.Controls.Add(this.label13);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
             this.panel3.Controls.Add(this.tb_re_ad_id);
             this.panel3.Controls.Add(this.change_grid);
+            this.panel3.Controls.Add(this.tb_change_order);
             this.panel3.Controls.Add(this.flowLayoutPanel2);
             this.panel3.Controls.Add(this.change_apid);
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -1107,7 +1121,6 @@
             this.tb_re_ad_id.Location = new System.Drawing.Point(137, 454);
             this.tb_re_ad_id.Margin = new System.Windows.Forms.Padding(2);
             this.tb_re_ad_id.Name = "tb_re_ad_id";
-            this.tb_re_ad_id.ReadOnly = true;
             this.tb_re_ad_id.Size = new System.Drawing.Size(127, 21);
             this.tb_re_ad_id.TabIndex = 17;
             // 
@@ -1132,7 +1145,7 @@
             this.change_grid.Name = "change_grid";
             this.change_grid.ReadOnly = true;
             this.change_grid.RowTemplate.Height = 23;
-            this.change_grid.Size = new System.Drawing.Size(576, 281);
+            this.change_grid.Size = new System.Drawing.Size(640, 281);
             this.change_grid.TabIndex = 16;
             this.change_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.change_grid_CellContentClick);
             // 
@@ -1268,15 +1281,24 @@
             this.label5.Text = "未包装板件";
             this.label5.Visible = false;
             // 
-            // lb_sec_order_id
+            // tb_change_order
             // 
-            this.lb_sec_order_id.AutoSize = true;
-            this.lb_sec_order_id.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lb_sec_order_id.Location = new System.Drawing.Point(611, 130);
-            this.lb_sec_order_id.Name = "lb_sec_order_id";
-            this.lb_sec_order_id.Size = new System.Drawing.Size(73, 21);
-            this.lb_sec_order_id.TabIndex = 20;
-            this.lb_sec_order_id.Text = "订单号";
+            this.tb_change_order.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.tb_change_order.Location = new System.Drawing.Point(100, 9);
+            this.tb_change_order.Margin = new System.Windows.Forms.Padding(2);
+            this.tb_change_order.Name = "tb_change_order";
+            this.tb_change_order.Size = new System.Drawing.Size(127, 21);
+            this.tb_change_order.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 12);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 12);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "订  单  号：";
             // 
             // Form1
             // 
@@ -1287,6 +1309,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1464, 836);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panle_reprint);
             this.Controls.Add(this.panel2);
@@ -1449,6 +1472,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Sec_code_id2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Order_id_sec2;
         private System.Windows.Forms.Label lb_sec_order_id;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tb_change_order;
     }
 }
 
